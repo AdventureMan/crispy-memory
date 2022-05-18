@@ -1,0 +1,744 @@
+{
+	"info": {
+		"_postman_id": "02a3760c-f76a-4a7e-add5-faa25664f6c0",
+		"name": "Carbon Interface",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Estimates",
+			"item": [
+				{
+					"name": "Electricity Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"electricity\",\n    \"country\": \"us\",\n    \"state\": \"fl\",\n    \"electricity_unit\": \"mwh\",\n    \"electricity_value\": 42.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flight Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"flight\",\n    \"legs\": [\n        {\"departure_airport\": \"nce\", \"destination_airport\": \"arn\"}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"vehicle\",\n    \"distance_unit\": \"mi\",\n    \"distance_value\": 1000,\n    \"vehicle_model_id\": \"07b83590-9500-4460-92cd-f8ffdcc20102\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Shipping Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"shipping\",\n    \"weight_value\": 200,\n    \"weight_unit\": \"g\",\n    \"distance_value\": 2000,\n    \"distance_unit\": \"mi\",\n    \"transport_method\": \"truck\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fuel Combustion Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"fuel_combustion\",\n    \"fuel_source_type\": \"dfo\",\n    \"fuel_source_value\": 2,\n    \"fuel_source_unit\": \"btu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Estimate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/estimates/9b1e2132-6216-4c64-84b2-23cf31eb472e",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates",
+								"9b1e2132-6216-4c64-84b2-23cf31eb472e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Estimates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/estimates",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"estimates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fuel Sources",
+			"item": [
+				{
+					"name": "Fuel Sources",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/fuel_sources",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"fuel_sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fuel Source",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/fuel_sources/7c48d043-0ff2-40f5-b51f-06515e78bb0d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"fuel_sources",
+								"7c48d043-0ff2-40f5-b51f-06515e78bb0d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"item": [
+				{
+					"name": "Vehicle Makes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/vehicle_makes",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"vehicle_makes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle Models",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/vehicle_makes/ec162c99-682b-4a80-bf05-a3641677926c/vehicle_models",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"vehicle_makes",
+								"ec162c99-682b-4a80-bf05-a3641677926c",
+								"vehicle_models"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vehicle Make",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{API_KEY}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/vehicle_makes/224d042a-dcc0-4924-9451-f586e5cf99da",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"vehicle_makes",
+								"224d042a-dcc0-4924-9451-f586e5cf99da"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carbon Ledger",
+			"item": [
+				{
+					"name": "Card Profile",
+					"item": [
+						{
+							"name": "Card Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"external_id\": \"12321311\",\n    \"diet_habit\": \"omnivore\",\n    \"transportation_method\": \"midsize_vehicle\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Card Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Card Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"external_id\": \"12321311\",\n    \"diet_habit\": \"omnivore\",\n    \"transportation_method\": \"compact_vehicle\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Card Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Card Profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Transaction",
+					"item": [
+						{
+							"name": "Transaction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"amount_cents\": 10000,\n    \"currency\": \"PHP\",\n    \"external_id\": \"1234\",\n    \"merchant_category\": \"quick_serve_restauraunt\",\n    \"merchant_category_code\": \"5814\",\n    \"merchant_name\": \"Philz Coffee\",\n    \"merchant_country\": \"CA\",\n    \"merchant_state\": \"ON\",\n    \"merchant_city\": \"San Francisco\",\n    \"merchant_postal_code\": \"90210\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}/transactions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transaction",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{API_KEY}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/carbon_ledger/programs/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}/transactions/fdd4a305-b221-429e-9098-43e4056cd41d",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"carbon_ledger",
+										"programs",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}",
+										"transactions",
+										"fdd4a305-b221-429e-9098-43e4056cd41d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/api/carbon_ledger/program_settings/{{PROGRAM_UUID}}/card_profiles/{{PROFILE_UUID}}/transactions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"carbon_ledger",
+										"program_settings",
+										"{{PROGRAM_UUID}}",
+										"card_profiles",
+										"{{PROFILE_UUID}}",
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pre-flight Checklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/estimates",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"estimates"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
