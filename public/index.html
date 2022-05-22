@@ -1,13 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matt</title>
-</head>
-<body>
-    <h1>Test loading this page</h1>
 
-    <h1>Hi Brooke!!!</h1>
+    <!-- Bootsrap CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="./styles.css">
+
+        <script src="./index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="intro" class="row">
+            <!-- Header stuff -->
+            <col>
+            <h2>Calculate the Carbon Footprint of your trip!</h2>
+            <p><i>some link to repo</i> <i>by matt keenan</i></p>
+            <col>
+        </div>
+        <div id="tripType" class="row">
+            <!-- Allow user to select trip type -->
+
+            <div class="transport-box" id="plane" onclick="setTransport('plane')">
+                <h4>Airplane</h4>
+
+            </div>
+            <div class="transport-box" id="vehicle" onclick="setTransport('vehicle')">
+                <h4>Automobile</h4>
+            </div>
+            <div class="transport-box" id="shipping" onclick="setTransport('shipping')">
+                <h4>Shipping</h4>
+            </div>
+
+        </div>
+        <div id="tripInput">
+            <!-- Gather user input to send to fetch API -->
+        </div>
+        <div id="tripResult">
+            <!-- Display resulting API data from Carbon API -->
+
+        </div>
+
+    </div>
 </body>
+
 </html>

@@ -2,9 +2,9 @@
   "name": "proxy-server",
   "version": "1.0.0",
   "description": "node server serving a static page and acting as an API proxy",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "matt keenan",

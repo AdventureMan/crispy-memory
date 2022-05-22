@@ -29,8 +29,8 @@ app.get(api + health, (req, res) => {
 });
 
 app.get(api+'test', (req, res) => {
-
     const request = new Request(`${carbonAPI}/auth`, {
+
         headers: {
             Authorization: `Bearer ${token}`
         },

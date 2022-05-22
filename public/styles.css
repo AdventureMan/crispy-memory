@@ -1,0 +1,15 @@
+.transport-box {
+    height: 200px;
+    width: 200px;
+    border: solid thick lightblue;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: ivory;
+    /* animation: background-color 500ms ease-in-out; */
+    transition: background-color 300ms ease-in-out;
+}
+
+.transport-box:hover {
+    background-color: seashell;
+    cursor: pointer;
+}
