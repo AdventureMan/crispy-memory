@@ -2,7 +2,7 @@
 
 _UI gods please forgive me_
 
-This is a NodeJS app that serves up a static page allowing users to submit basic travel information and receieve carbon emissions estimates.
+This is a NodeJS app that serves up a static page and lightweight API allowing users to submit basic travel information and receieve carbon emissions estimates.
 
 Carbon emissions calculations and data are sourced from [Carbon Interface](https://docs.carboninterface.com/#/) API
 
