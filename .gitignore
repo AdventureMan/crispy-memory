@@ -4,3 +4,6 @@ node_modules/**
 # misc
 .DS_Store
 ideas.txt
+
+# secret sauce
+.env

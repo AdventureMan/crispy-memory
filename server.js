@@ -1,4 +1,7 @@
 
+// Load env vars
+require('dotenv').config();
+
 // Define basic Express configs
 const { application } = require('express');
 const express = require('express');
@@ -9,8 +12,13 @@ const path = require('path');
 // Define some basic endpoints
 const api = '/api/v1';
 const health = `/health`;
-const carbonAPI = 'https://www.carboninterface.com/api/v1';
 const POST_CALC = '/calculate'
+
+// Define our target API to proxy to
+const PROXY_API = {
+    key: process.env.SECRET_KEY,
+    url: 'https://www.carboninterface.com/api/v1',
+}
 
 
 
@@ -37,10 +45,6 @@ class ShippingRequest {
         this.method = method;
     }
 }
-
-
-// DELETE BEFORE COMMIT
-const token = '';
 
 // Serve static assets and include JSON body parsing middleware
 app.use('', express.static(path.join(__dirname, 'public')));
@@ -84,4 +88,5 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
 // Start the server
 app.listen(port, () => {
     console.log(`Express running on port ${port}`);
+    console.log('token', PROXY_API.key);
 })
