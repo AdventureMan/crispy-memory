@@ -15,3 +15,4 @@ Carbon emissions calculations and data are sourced from [Carbon Interface](https
     - ex. `SECRET_KEY="$MY_API_KEY"`
 5. Start the server on port 8080 with `npm run start`
     - the static UI is served at the base path `/`
+    - the endpoint for fetching estimates is `/api/v1/calculate`
