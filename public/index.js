@@ -77,16 +77,23 @@ function getCalc(formType) {
     // Call and respond to the API
     fetch(API, apiInit)
         .then((response) => {
-            response.json()
-                .then(r => updatePage(r));
-        }, (err) => {
-            console.error('Something went wrong', err);
-        });
+            if (response.ok) {
+                response.json()
+                    .then(r => updatePage(r));
+            } else {
+                console.error('Something went wrong', err);
+                carbonOutput.innerText = 'Well something broke... try again?';
+            }
+        })
+        .catch(e => {
+            console.error(new Error('API failed'));
+            carbonOutput.innerText = 'Well something broke... try again?';
+        })
 }
 
 // Called from JS
 // Binds the estimate values to the DOM
 function updatePage(data) {
     carbonOutput.innerText = data.data.attributes.carbon_lb + 'lbs.';
-    
+
 }

@@ -28,7 +28,6 @@ const PROXY_API = {
 
 
 // Define some classes for data because I'm feeling fancy
-
 class CarbonFlightReq {
     constructor(type, passengers, legs, unit) {
         this.type = 'flight';
@@ -82,16 +81,7 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
         return;
     }
 
-    const bodyData = request.body.data;
-
-    let carbonReq = {};
-    if (request.body.type === 'plane') {
-        carbonReq = new CarbonFlightReq(request.body.type, null, [bodyData.departure, bodyData.destination], 'mi');
-    } else if (request.body.type === 'vehicle') {
-        carbonReq = new CarbonVehReq(request.body.type, 'mi', bodyData.distance, '7268a9b7-17e8-4c8d-acca-57059252afe9');
-    } else {
-        carbonReq = new CarbonShipReq(request.body.type, bodyData.weight, 'lb', bodyData.distance, 'mi', bodyData.method.toLowerCase());
-    }
+    let carbonReq = getCarbonReq(request);
 
     fetch(PROXY_API.url, {
         method: 'post',
@@ -101,15 +91,43 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
     .then(res => res.json())
     .then(json => {
         response.send(json);
-    });
-    
-
+    })
+    .catch(err => {
+        response.status(400).send(err);
+    })
 })
 
+function getCarbonReq(req) {
+    if (!req || !req.body || !req.body.type) {
+        throw Error('malformed params');
+    }
+
+    const data = req.body.data;
+    let carbonReq = {};
+    switch(req.body.type) {
+        case 'plane':
+            carbonReq = new CarbonFlightReq(req.body.type, null, [data.departure, data.destination], 'mi');
+            break;
+        case 'vehicle':
+            carbonReq = new CarbonVehReq(req.body.type, 'mi', data.distance, '7268a9b7-17e8-4c8d-acca-57059252afe9');
+            break;
+        case 'shipping':
+            carbonReq = new CarbonShipReq(req.body.type, data.weight, 'lb', data.distance, 'mi', data.method.toLowerCase());
+            break;
+    }
+    return carbonReq;
+}
+
+function validateKey() {
+    if(!PROXY_API.key) {
+        console.error('*** Missing API key*** Is your \'.env\' file created?')
+    }
+}
 
 
 
 // Start the server
 app.listen(port, () => {
     console.log(`Express running on port ${port}`);
+    validateKey();
 })
