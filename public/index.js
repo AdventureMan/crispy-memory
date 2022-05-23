@@ -1,11 +1,14 @@
 
+// Set our backend API path
 const API = 'api/v1/calculate'
 
+// Handy references to our form wrappers on the DOM
 const planeBlock = document.getElementById('plane-inputs');
 const vehicleBlock = document.getElementById('vehicle-inputs');
 const shippingBlock = document.getElementById('shipping-inputs');
 const carbonOutput = document.getElementById('carbon-output');
 
+// Handy reference to the form in use
 let currentForm = null;
 
 
@@ -14,11 +17,9 @@ window.onload = (e) => {
 }
 
 
-
-
-
+// Sets the current form based on the transportation type and hides others
+// Called from the DOM
 function setTransport(ev) {
-    console.log('setTransport', ev);
     currentForm = document.getElementById(`form-${ev}`);
 
     planeBlock.hidden = true;
@@ -29,12 +30,14 @@ function setTransport(ev) {
     document.getElementById(`${ev}-inputs`).hidden = false;
 }
 
-
+// Called from the DOM
+// Formats the request and calls the API to generate an estimate
 function getCalc(formType) {
     let type = formType;
     const form = currentForm.elements;
     let data = {};
 
+    // Create the request object based on the transport type
     switch (formType) {
         case 'plane':
             data = {
@@ -58,6 +61,7 @@ function getCalc(formType) {
             break;
     }
 
+    // Create request headers, body, method, etc.
     const request = {
         type,
         data
@@ -70,6 +74,7 @@ function getCalc(formType) {
         headers
     };
 
+    // Call and respond to the API
     fetch(API, apiInit)
         .then((response) => {
             response.json()
@@ -79,9 +84,9 @@ function getCalc(formType) {
         });
 }
 
-
+// Called from JS
+// Binds the estimate values to the DOM
 function updatePage(data) {
-    console.log('Data to update page', data);
     carbonOutput.innerText = data.data.attributes.carbon_lb + 'lbs.';
     
 }
