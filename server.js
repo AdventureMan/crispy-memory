@@ -28,7 +28,6 @@ const PROXY_API = {
 
 
 // Define some classes for data because I'm feeling fancy
-
 class CarbonFlightReq {
     constructor(type, passengers, legs, unit) {
         this.type = 'flight';
@@ -92,9 +91,10 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
     .then(res => res.json())
     .then(json => {
         response.send(json);
-    });
-    
-
+    })
+    .catch(err => {
+        response.status(400).send(err);
+    })
 })
 
 function getCarbonReq(req) {
@@ -118,10 +118,16 @@ function getCarbonReq(req) {
     return carbonReq;
 }
 
+function validateKey() {
+    if(!PROXY_API.key) {
+        console.error('*** Missing API key*** Is your \'.env\' file created?')
+    }
+}
 
 
 
 // Start the server
 app.listen(port, () => {
     console.log(`Express running on port ${port}`);
+    validateKey();
 })
