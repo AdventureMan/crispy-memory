@@ -4,6 +4,7 @@ const API = 'api/v1/calculate'
 const planeBlock = document.getElementById('plane-inputs');
 const vehicleBlock = document.getElementById('vehicle-inputs');
 const shippingBlock = document.getElementById('shipping-inputs');
+const carbonOutput = document.getElementById('carbon-output');
 
 let currentForm = null;
 
@@ -71,9 +72,16 @@ function getCalc(formType) {
 
     fetch(API, apiInit)
         .then((response) => {
-            console.log('Something went right!', response);
-
+            response.json()
+                .then(r => updatePage(r));
         }, (err) => {
             console.error('Something went wrong', err);
         });
+}
+
+
+function updatePage(data) {
+    console.log('Data to update page', data);
+    carbonOutput.innerText = data.data.attributes.carbon_lb + 'lbs.';
+    
 }
