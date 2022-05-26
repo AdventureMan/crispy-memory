@@ -6,6 +6,7 @@ require('dotenv').config();
 const { application } = require('express');
 const express = require('express');
 const app = express();
+const fs = require('fs');
 const fetch = require('node-fetch');
 const port = 8080;
 const path = require('path');
@@ -14,6 +15,8 @@ const path = require('path');
 const api = '/api/v1';
 const health = `/health`;
 const POST_CALC = '/calculate'
+const GET_VEHICLES = '/vehicles'
+const GET_VEHICLE_MODEL = `${GET_VEHICLES}/:model`;
 
 // Define our target API to proxy to
 const PROXY_API = {
@@ -24,6 +27,13 @@ const PROXY_API = {
         ['Content-Type', 'application/json']
     ])
 };
+
+const validVehicles = new Map([
+    ['toyota', 1],
+    ['tesla', 2],
+    ['audi', 3],
+    ['ford', 3],
+]);
 
 // Create a little logger
 const logger = (req, res, next) => {
@@ -45,13 +55,13 @@ class CarbonFlightReq {
             departure_airport: legs[0],
             destination_airport: legs[1]
         }],
-        this.distance_unit = unit ? unit : null;
+            this.distance_unit = unit ? unit : null;
     }
 }
 
 class CarbonVehReq {
-    constructor(type,unit, distance, id) {
-        this.type =type;
+    constructor(type, unit, distance, id) {
+        this.type = type;
         this.distance_unit = unit;
         this.distance_value = +distance;
         this.vehicle_model_id = id;
@@ -82,6 +92,27 @@ app.get(`${api}${health}`, (req, res) => {
 });
 
 
+// API to fetch vehicle details
+// Returns a collection of strings
+app.get(`${api}${GET_VEHICLES}`, (req, res) => {
+    fs.readFile(path.join(__dirname, 'data/vehicle-makes.json'), 'utf-8', (error, data) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send(error);
+            return;
+        }
+
+        let filterData = JSON.parse(data);
+        filterData = filterData
+            .filter(v => validVehicles.get(v.data.attributes.name.toLowerCase()))
+            .map(v => v.data.attributes.name);
+
+        res.setHeader('Content-Type', 'application/json')
+            .send(JSON.stringify(filterData));
+    });
+});
+
+
 // API to handle form input
 app.post(`${api}${POST_CALC}`, (request, response) => {
 
@@ -97,13 +128,13 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
         headers: PROXY_API.header,
         body: JSON.stringify(carbonReq)
     })
-    .then(res => res.json())
-    .then(json => {
-        response.send(json);
-    })
-    .catch(err => {
-        response.status(400).send(err);
-    })
+        .then(res => res.json())
+        .then(json => {
+            response.send(json);
+        })
+        .catch(err => {
+            response.status(400).send(err);
+        })
 })
 
 function getCarbonReq(req) {
@@ -113,7 +144,7 @@ function getCarbonReq(req) {
 
     const data = req.body.data;
     let carbonReq = {};
-    switch(req.body.type) {
+    switch (req.body.type) {
         case 'plane':
             carbonReq = new CarbonFlightReq(req.body.type, null, [data.departure, data.destination], 'mi');
             break;
@@ -128,7 +159,7 @@ function getCarbonReq(req) {
 }
 
 function validateKey() {
-    if(!PROXY_API.key) {
+    if (!PROXY_API.key) {
         console.error('*** Missing API key*** Is your \'.env\' file created?')
     }
 }
