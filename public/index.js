@@ -25,7 +25,14 @@ function fetchVhicModels() {
         .then((response) => {
             if (response.ok) {
                 response.json()
-                    .then(r => console.log('Vehicles', r));
+                    .then(r => {
+                        const makesDropDown = document.getElementById('inputMake');
+                        r.forEach(vehicle => {
+                            const opt = document.createElement('option');
+                            opt.value = vehicle, opt.text = vehicle;
+                            makesDropDown.add(opt);
+                        });
+                    });
             } else {
                 console.error('Something went wrong', err);
             }
