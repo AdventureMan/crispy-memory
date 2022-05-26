@@ -25,6 +25,15 @@ const PROXY_API = {
     ])
 };
 
+// Create a little logger
+const logger = (req, res, next) => {
+    const timestamp = new Date().toUTCString();
+    const logString = `[LOG] ${timestamp} ${req.originalUrl}`;
+    console.log(logString);
+
+    next();
+}
+app.use(logger);
 
 
 // Define some classes for data because I'm feeling fancy
