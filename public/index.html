@@ -60,7 +60,9 @@
                 <form id="form-vehicle">
                     <div class="mb-3">
                         <label for="inputMake" class="form-label">Make</label>
-                        <select class="form-select" id="inputMake" aria-label="Select vehicle make" required>
+                        <select class="form-select" id="inputMake" aria-label="Select vehicle make" 
+                        onchange="fetchVhicModel(event)"
+                        required>
                             <option selected disabled>Select One...</option>
 
                         </select>
@@ -68,7 +70,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="inputModel" class="form-label">Model</label>
-                        <input type="text" class="form-control" id="inputModel" required>
+                        <select class="form-select" id="inputModel" aria-label="Select vehicle model" required>
+                            <option selected disabled>Select One...</option>
+
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="inputVehDist" class="form-label">Distance (mi)</label>

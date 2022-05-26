@@ -9,16 +9,20 @@ const vehicleBlock = document.getElementById('vehicle-inputs');
 const shippingBlock = document.getElementById('shipping-inputs');
 const carbonOutput = document.getElementById('carbon-output');
 
+const makesDropDown = document.getElementById('inputMake');
+const modelDropdown = document.getElementById('inputModel');
+
+
 // Handy reference to the form in use
 let currentForm = null;
 
 
 window.onload = (e) => {
     console.log('Window loaded');
-    fetchVhicModels();
+    fetchVhicMakes();
 }
 
-function fetchVhicModels() {
+function fetchVhicMakes() {
 
     // Call and respond to the API
     fetch(API_VHIC_MODELS)
@@ -26,7 +30,6 @@ function fetchVhicModels() {
             if (response.ok) {
                 response.json()
                     .then(r => {
-                        const makesDropDown = document.getElementById('inputMake');
                         r.forEach(vehicle => {
                             const opt = document.createElement('option');
                             opt.value = vehicle, opt.text = vehicle;
@@ -41,6 +44,40 @@ function fetchVhicModels() {
             console.error(new Error('API failed'));
         });
 
+}
+
+// Fired from the DOM vehicle models dropdown on-change
+function fetchVhicModel(e) {
+
+    // Clear
+    for(let i = modelDropdown.options.length; i > 0; i--){
+        modelDropdown.remove(i);
+    }
+
+    const model = e.target.value.toLowerCase();
+    if(!model || !model.toString().length){
+        console.log('Invalid vehicle model');
+        return;
+    }
+        // Call and respond to the API
+        fetch(`${API_VHIC_MODELS}/${model}`)
+        .then((response) => {
+            if (response.ok) {
+                response.json()
+                    .then(r => {
+                        r.forEach(model => {
+                            const opt = document.createElement('option');
+                            opt.value = model, opt.text = model;
+                            modelDropdown.add(opt);
+                        });
+                    });
+            } else {
+                console.error('Something went wrong', err);
+            }
+        })
+        .catch(e => {
+            console.error(new Error('API failed'));
+        });
 }
 
 

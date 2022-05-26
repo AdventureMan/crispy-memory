@@ -94,26 +94,56 @@ app.get(`${api}${health}`, (req, res) => {
 
 // API to fetch vehicle details
 // Returns a collection of strings
-app.get(`${api}${GET_VEHICLES}`, (req, res) => {
-    fs.readFile(path.join(__dirname, 'data/vehicle-makes.json'), 'utf-8', (error, data) => {
-        if (error) {
-            console.error(error);
-            res.status(500).send(error);
+app.get(`${api}${GET_VEHICLES}/:id?`, (req, res) => {
+
+    if (req.params.id !== null && req.params.id !== undefined){
+        if(!validVehicles.has(req.params.id.toString().toString())) {
+            console.error('Invalid Vehicle');
+            res.status(400).send('Invalid vehicle make');
             return;
         }
 
-        let filterData = JSON.parse(data);
-        filterData = filterData
+        fs.readFile(path.join(__dirname, `data/vehicle-models-${req.params.id}.json`), 'utf-8', (error, data) => {
+            if (error) {
+                console.error(error);
+                res.status(500).send(error);
+                return;
+            }
+
+            let carData = JSON.parse(data);
+            carData = Array.from(new Set(
+                carData.map(c => c.data.attributes.name)
+            ));
+            res.setHeader('Content-Type', 'application/json')
+            .send(JSON.stringify(carData));
+            return;
+
+
+        });
+    } else {
+
+        
+        
+        fs.readFile(path.join(__dirname, 'data/vehicle-makes.json'), 'utf-8', (error, data) => {
+            if (error) {
+                console.error(error);
+                res.status(500).send(error);
+                return;
+            }
+            
+            let filterData = JSON.parse(data);
+            filterData = filterData
             .filter(v => validVehicles.get(v.data.attributes.name.toLowerCase()))
             .map(v => v.data.attributes.name);
-
-        res.setHeader('Content-Type', 'application/json')
+            
+            res.setHeader('Content-Type', 'application/json')
             .send(JSON.stringify(filterData));
+        });
+    }
     });
-});
 
 
-// API to handle form input
+    // API to handle form input
 app.post(`${api}${POST_CALC}`, (request, response) => {
 
     if (!request || !request.body || !request.body.data) {
