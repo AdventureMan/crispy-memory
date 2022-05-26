@@ -50,7 +50,8 @@
                         <label for="inputDestination" class="form-label">Destination</label>
                         <input type="text" class="form-control" id="inputDestination" name="inputDestination" required>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('plane')">Calculate Flight Carbon!</button>
+                    <button type="button" class="btn btn-primary" onclick="getCalc('plane')">Calculate Flight
+                        Carbon!</button>
                 </form>
 
             </div>
@@ -59,7 +60,11 @@
                 <form id="form-vehicle">
                     <div class="mb-3">
                         <label for="inputMake" class="form-label">Make</label>
-                        <input type="text" class="form-control" id="inputMake" required>
+                        <select class="form-select" id="inputMake" aria-label="Select vehicle make" required>
+                            <option selected disabled>Select One...</option>
+
+                        </select>
+
                     </div>
                     <div class="mb-3">
                         <label for="inputModel" class="form-label">Model</label>
@@ -69,7 +74,8 @@
                         <label for="inputVehDist" class="form-label">Distance (mi)</label>
                         <input type="text" class="form-control" id="inputVehDist" required>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('vehicle')">Calculate Vehicle Carbon!</button>
+                    <button type="button" class="btn btn-primary" onclick="getCalc('vehicle')">Calculate Vehicle
+                        Carbon!</button>
                 </form>
 
             </div>
@@ -94,7 +100,8 @@
                             <option>Plane</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('shipping')">Calculate Shipping Carbon!</button>
+                    <button type="button" class="btn btn-primary" onclick="getCalc('shipping')">Calculate Shipping
+                        Carbon!</button>
                 </form>
 
             </div>
