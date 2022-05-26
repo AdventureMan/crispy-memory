@@ -1,6 +1,7 @@
 
 // Set our backend API path
 const API = 'api/v1/calculate'
+const API_VHIC_MODELS = 'api/v1/vehicles';
 
 // Handy references to our form wrappers on the DOM
 const planeBlock = document.getElementById('plane-inputs');
@@ -14,6 +15,25 @@ let currentForm = null;
 
 window.onload = (e) => {
     console.log('Window loaded');
+    fetchVhicModels();
+}
+
+function fetchVhicModels() {
+
+    // Call and respond to the API
+    fetch(API_VHIC_MODELS)
+        .then((response) => {
+            if (response.ok) {
+                response.json()
+                    .then(r => console.log('Vehicles', r));
+            } else {
+                console.error('Something went wrong', err);
+            }
+        })
+        .catch(e => {
+            console.error(new Error('API failed'));
+        });
+
 }
 
 
