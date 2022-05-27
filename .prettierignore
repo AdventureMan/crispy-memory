@@ -1,0 +1,19 @@
+# Ignore artifacts:
+build
+coverage
+
+
+# IDE
+.vscode
+
+# node modules
+node_modules/**
+
+# misc
+.DS_Store
+ideas.txt
+.github/
+
+# secret sauce
+.env
+data/
