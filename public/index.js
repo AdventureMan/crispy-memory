@@ -9,6 +9,16 @@ const vehicleBlock = document.getElementById('vehicle-inputs');
 const shippingBlock = document.getElementById('shipping-inputs');
 const carbonOutput = document.getElementById('carbon-output');
 
+// refs to the transportation blocks
+const planeInput = document.getElementById('plane');
+const vehicleInput = document.getElementById('vehicle');
+const shippingInput = document.getElementById('shipping');
+
+// refs to the different submit buttons
+const planeSubmit = document.getElementById('planeSubmit');
+const vehicleSubmit = document.getElementById('vehicleSubmit');
+const shippingSubmit = document.getElementById('shippingSubmit');
+
 const makesDropDown = document.getElementById('inputMake');
 const modelDropdown = document.getElementById('inputModel');
 
@@ -17,10 +27,21 @@ const modelDropdown = document.getElementById('inputModel');
 let currentForm = null;
 
 
-window.onload = (e) => {
+window.onload = () => {
     console.log('Window loaded');
     fetchVhicMakes();
 }
+
+makesDropDown.addEventListener('change',  (e) => fetchVhicModel(e));
+planeInput.addEventListener('click', () => setTransport('plane'));
+vehicleInput.addEventListener('click', () => setTransport('vehicle'));
+shippingInput.addEventListener('click', () => setTransport('shipping'));
+
+planeSubmit.addEventListener('click', () => getCalc(currentForm));
+vehicleSubmit.addEventListener('click', () => getCalc(currentForm));
+shippingSubmit.addEventListener('click', () => getCalc(currentForm));
+
+
 
 function fetchVhicMakes() {
 
@@ -37,11 +58,11 @@ function fetchVhicMakes() {
                         });
                     });
             } else {
-                console.error('Something went wrong', err);
+                console.log('Something went wrong');
             }
         })
         .catch(e => {
-            console.error(new Error('API failed'));
+            console.log(new Error(e));
         });
 
 }
@@ -50,17 +71,17 @@ function fetchVhicMakes() {
 function fetchVhicModel(e) {
 
     // Clear
-    for(let i = modelDropdown.options.length; i > 0; i--){
+    for (let i = modelDropdown.options.length; i > 0; i--) {
         modelDropdown.remove(i);
     }
 
     const model = e.target.value.toLowerCase();
-    if(!model || !model.toString().length){
+    if (!model || !model.toString().length) {
         console.log('Invalid vehicle model');
         return;
     }
-        // Call and respond to the API
-        fetch(`${API_VHIC_MODELS}/${model}`)
+    // Call and respond to the API
+    fetch(`${API_VHIC_MODELS}/${model}`)
         .then((response) => {
             if (response.ok) {
                 response.json()
@@ -72,11 +93,11 @@ function fetchVhicModel(e) {
                         });
                     });
             } else {
-                console.error('Something went wrong', err);
+                console.log('Something went wrong');
             }
         })
         .catch(e => {
-            console.error(new Error('API failed'));
+            console.log(new Error(e));
         });
 }
 
@@ -145,12 +166,11 @@ function getCalc(formType) {
                 response.json()
                     .then(r => updatePage(r));
             } else {
-                console.error('Something went wrong', err);
                 carbonOutput.innerText = 'Well something broke... try again?';
             }
         })
-        .catch(e => {
-            console.error(new Error('API failed'));
+        .catch(() => {
+            console.log(new Error('API failed'));
             carbonOutput.innerText = 'Well something broke... try again?';
         })
 }

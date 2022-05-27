@@ -25,14 +25,14 @@
         <div id="tripType" class="row">
             <!-- Allow user to select trip type -->
 
-            <div class="transport-box" id="plane" onclick="setTransport('plane')">
+            <div class="transport-box" id="plane">
                 <h4>Airplane</h4>
 
             </div>
-            <div class="transport-box" id="vehicle" onclick="setTransport('vehicle')">
+            <div class="transport-box" id="vehicle">
                 <h4>Automobile</h4>
             </div>
-            <div class="transport-box" id="shipping" onclick="setTransport('shipping')">
+            <div class="transport-box" id="shipping">
                 <h4>Shipping</h4>
             </div>
 
@@ -50,7 +50,7 @@
                         <label for="inputDestination" class="form-label">Destination</label>
                         <input type="text" class="form-control" id="inputDestination" name="inputDestination" required>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('plane')">Calculate Flight
+                    <button type="button" class="btn btn-primary" id="planeSubmit">Calculate Flight
                         Carbon!</button>
                 </form>
 
@@ -60,9 +60,7 @@
                 <form id="form-vehicle">
                     <div class="mb-3">
                         <label for="inputMake" class="form-label">Make</label>
-                        <select class="form-select" id="inputMake" aria-label="Select vehicle make" 
-                        onchange="fetchVhicModel(event)"
-                        required>
+                        <select class="form-select" id="inputMake" aria-label="Select vehicle make" required>
                             <option selected disabled>Select One...</option>
 
                         </select>
@@ -79,7 +77,7 @@
                         <label for="inputVehDist" class="form-label">Distance (mi)</label>
                         <input type="text" class="form-control" id="inputVehDist" required>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('vehicle')">Calculate Vehicle
+                    <button type="button" class="btn btn-primary" id="vehicleSubmit">Calculate Vehicle
                         Carbon!</button>
                 </form>
 
@@ -105,7 +103,7 @@
                             <option>Plane</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="getCalc('shipping')">Calculate Shipping
+                    <button type="button" class="btn btn-primary" id="shippingSubmit">Calculate Shipping
                         Carbon!</button>
                 </form>
 

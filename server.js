@@ -1,9 +1,8 @@
 
 // Load env vars
 require('dotenv').config();
-
+const process = require('process')
 // Define basic Express configs
-const { application } = require('express');
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -16,7 +15,7 @@ const api = '/api/v1';
 const health = `/health`;
 const POST_CALC = '/calculate'
 const GET_VEHICLES = '/vehicles'
-const GET_VEHICLE_MODEL = `${GET_VEHICLES}/:model`;
+
 
 // Define our target API to proxy to
 const PROXY_API = {
@@ -80,6 +79,7 @@ class CarbonShipReq {
 }
 
 // Serve static assets and include JSON body parsing middleware
+// eslint-disable-next-line no-undef
 app.use('', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -103,6 +103,7 @@ app.get(`${api}${GET_VEHICLES}/:id?`, (req, res) => {
             return;
         }
 
+        // eslint-disable-next-line no-undef
         fs.readFile(path.join(__dirname, `data/vehicle-models-${req.params.id}.json`), 'utf-8', (error, data) => {
             if (error) {
                 console.error(error);
@@ -124,6 +125,7 @@ app.get(`${api}${GET_VEHICLES}/:id?`, (req, res) => {
 
         
         
+        // eslint-disable-next-line no-undef
         fs.readFile(path.join(__dirname, 'data/vehicle-makes.json'), 'utf-8', (error, data) => {
             if (error) {
                 console.error(error);
@@ -148,6 +150,14 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
 
     if (!request || !request.body || !request.body.data) {
         response.status(400).send(JSON.stringify(new Error('malformed request')));
+        return;
+    }
+
+    if (!PROXY_API || !PROXY_API.key) {
+        response.status(400).send(JSON.stringify({
+            errorCode: 400,
+            errorMessage: 'Mising KEY'
+        }));
         return;
     }
 
