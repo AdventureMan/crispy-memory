@@ -3,6 +3,7 @@ require('dotenv').config();
 const process = require('process');
 // Define basic Express configs
 const express = require('express');
+const RateLimit = require('express-rate-limit');
 const app = express();
 const fs = require('fs');
 const fetch = require('node-fetch');
@@ -32,11 +33,14 @@ const validVehicles = new Map([
   ['ford', 3],
 ]);
 
+function applog(req, msg) {
+  let str = msg ? msg : req.originalUrl;
+  console.log(`[LOG] ${new Date().toUTCString()} ${str}`)
+}
+
 // Create a little logger
 const logger = (req, res, next) => {
-  const timestamp = new Date().toUTCString();
-  const logString = `[LOG] ${timestamp} ${req.originalUrl}`;
-  console.log(logString);
+  applog(req, null);
 
   next();
 };
@@ -76,6 +80,13 @@ class CarbonShipReq {
     this.transport_method = method;
   }
 }
+
+const limiter = RateLimit({
+  windowMs: 1*60*1000,
+  max: 5,
+  standardHeaders: true
+});
+app.use(`${api}${GET_VEHICLES}`, limiter)
 
 // Serve static assets and include JSON body parsing middleware
 // eslint-disable-next-line no-undef
