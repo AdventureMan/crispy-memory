@@ -1,6 +1,7 @@
 // Load env vars
 require('dotenv').config();
 const process = require('process');
+const sanitize = require('sanitize-filename');
 // Define basic Express configs
 const express = require('express');
 const RateLimit = require('express-rate-limit');
@@ -111,10 +112,13 @@ app.get(`${api}${GET_VEHICLES}/:id?`, (req, res) => {
       return;
     }
 
+    const filename = sanitize(`vehicle-models-${req.params.id}`);
+    const filepath = `data/${filename}.json`;
+
     // eslint-disable-next-line no-undef
     fs.readFile(
       // eslint-disable-next-line no-undef
-      path.join(__dirname, `data/vehicle-models-${req.params.id}.json`),
+      path.join(__dirname, filepath),
       'utf-8',
       (error, data) => {
         if (error) {
