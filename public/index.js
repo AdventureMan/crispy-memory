@@ -34,9 +34,9 @@ planeInput.addEventListener('click', () => setTransport('plane'));
 vehicleInput.addEventListener('click', () => setTransport('vehicle'));
 shippingInput.addEventListener('click', () => setTransport('shipping'));
 
-planeSubmit.addEventListener('click', () => getCalc(currentForm));
-vehicleSubmit.addEventListener('click', () => getCalc(currentForm));
-shippingSubmit.addEventListener('click', () => getCalc(currentForm));
+planeSubmit.addEventListener('click', () => getCalc('plane'));
+vehicleSubmit.addEventListener('click', () => getCalc('vehicle'));
+shippingSubmit.addEventListener('click', () => getCalc('shipping'));
 
 function fetchVhicMakes() {
   // Call and respond to the API
