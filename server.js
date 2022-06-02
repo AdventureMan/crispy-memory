@@ -1,17 +1,26 @@
 // Load env vars
 require('dotenv').config();
 const process = require('process');
+
+// for limiting the filesystem reads
+const RateLimit = require('express-rate-limit');
+
+// for sanitizing filepath
 const sanitize = require('sanitize-filename');
+
 // Define basic Express configs
 const express = require('express');
-const RateLimit = require('express-rate-limit');
 const app = express();
+
+// for reading the filesystem and creating a relative path, respectively
 const fs = require('fs');
-const fetch = require('node-fetch');
-const port = 8080;
 const path = require('path');
 
+// For proxying to another API
+const fetch = require('node-fetch');
+
 // Define some basic endpoints
+const port = 8080;
 const api = '/api/v1';
 const health = `/health`;
 const POST_CALC = '/calculate';
@@ -27,6 +36,7 @@ const PROXY_API = {
   ]),
 };
 
+// These are the Carbon API responses I have saved locally
 const validVehicles = new Map([
   ['toyota', 1],
   ['tesla', 2],
@@ -34,12 +44,13 @@ const validVehicles = new Map([
   ['ford', 3],
 ]);
 
+
+// Create a little logger
 function applog(req, msg) {
   let str = msg ? msg : req.originalUrl;
   console.log(`[LOG] ${new Date().toUTCString()} ${str}`)
 }
 
-// Create a little logger
 const logger = (req, res, next) => {
   applog(req, null);
 
@@ -82,6 +93,7 @@ class CarbonShipReq {
   }
 }
 
+// Create a rate limiter for when we read the filesystem
 const limiter = RateLimit({
   windowMs: 1*60*1000,
   max: 5,
@@ -198,6 +210,7 @@ app.post(`${api}${POST_CALC}`, (request, response) => {
     });
 });
 
+// Format the request body for the Carbon endpoints
 function getCarbonReq(req) {
   if (!req || !req.body || !req.body.type) {
     throw Error('malformed params');
